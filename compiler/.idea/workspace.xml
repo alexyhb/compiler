@@ -10,10 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6105f455-b3bf-4333-a66c-1e4ba0a6f04a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexyacc-code_lab3/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3i.c" beforeDir="false" afterPath="$PROJECT_DIR$/lexyacc-code_lab3/calc3i.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x86-64-driver.sh" beforeDir="false" afterPath="$PROJECT_DIR$/x86-64-driver.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/Compiler Code.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/Specification(v2).pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/Test Script.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/lexyacc.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/requir.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/testprogs.tar.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prologue.c" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,6 +46,12 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lexyacc-code_lab3" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -69,7 +81,7 @@
       <workItem from="1574425713002" duration="752000" />
       <workItem from="1574605051138" duration="3339000" />
       <workItem from="1574939388078" duration="1902000" />
-      <workItem from="1574968705134" duration="6307000" />
+      <workItem from="1574968705134" duration="8443000" />
     </task>
     <servers />
   </component>
