@@ -10,8 +10,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6105f455-b3bf-4333-a66c-1e4ba0a6f04a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/c-driver.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/epilogue.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3.l" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3.y" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3a.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3b.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3g.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/calc3i.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/lib.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prologue.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fact.calc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gcd.calc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/harmonic.calc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/looptest.calc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pi.calc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/x86-64-driver.sh" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +97,7 @@
       <workItem from="1574425713002" duration="752000" />
       <workItem from="1574605051138" duration="3339000" />
       <workItem from="1574939388078" duration="1902000" />
-      <workItem from="1574968705134" duration="9525000" />
+      <workItem from="1574968705134" duration="10157000" />
     </task>
     <servers />
   </component>
