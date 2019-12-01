@@ -11,7 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6105f455-b3bf-4333-a66c-1e4ba0a6f04a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexyacc-code_lab3/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +73,7 @@
       <workItem from="1574425713002" duration="752000" />
       <workItem from="1574605051138" duration="3339000" />
       <workItem from="1574939388078" duration="1902000" />
-      <workItem from="1574968705134" duration="9246000" />
+      <workItem from="1574968705134" duration="9525000" />
     </task>
     <servers />
   </component>
