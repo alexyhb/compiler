@@ -2,7 +2,7 @@
 # bison -y -d calc1.y produces y.tab.c (the standard yacc output)
 
 # calc
-DIR=/lexyacc-code_lab3/
+DIR=lexyacc-code_lab3/
 # bison -y -d $(DIR)calc3.y\
 # flex $(DIR)calc3.l\
 # gcc -c y.tab.c lex.yy.c\
