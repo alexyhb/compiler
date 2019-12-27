@@ -3,13 +3,13 @@
 
 # calc
 DIR=/lexyacc-code_lab3/\
-bison -y -d $(DIR)calc3.y\
-flex $(DIR)calc3.l\
-gcc -c y.tab.c lex.yy.c\
-gcc y.tab.o lex.yy.o $(DIR)calc3i.c -o /bin/calc3i
+# bison -y -d $(DIR)calc3.y\
+# flex $(DIR)calc3.l\
+# gcc -c y.tab.c lex.yy.c\
+# gcc y.tab.o lex.yy.o $(DIR)calc3i.c -o /bin/calc3i
 
 
-deafult: c-backend
+deafult: x86-backend
 
 x86-backend:
 	bison -y -d $(DIR)calc3.y\
