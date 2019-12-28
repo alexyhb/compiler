@@ -80,7 +80,7 @@ int ex(nodeType *p) {
                         case '-':   printf("\tsub\t %%rbx %%rax \n"); break;
                         case '*':   printf("\tmul\t %%rbx \n"); break;
                         case '/':
-                            printf("\tcltq")
+                            printf("\tcltq");
                             printf("\tidiv %%rbx\n");
                             break;
                         case '<':
