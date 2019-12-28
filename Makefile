@@ -37,7 +37,7 @@ bison:
 # 	@$(CC) -c -o $(SRC_DIR)/fact.o $(SRC_DIR)/fact.s
 # 	@$(CC) -c -o $(SRC_DIR)/lntwo.o $(SRC_DIR)/lntwo.s
 # 	@$(CC) -c -o $(SRC_DIR)/gcd.o $(SRC_DIR)/gcd.s
-# 	@ar rcs $(LIB_DIR)/lib.a $(SRC_DIR)/fact.o $(SRC_DIR)/lntwo.o $(SRC_DIR)/gcd.o
+# 	@ar rcs $(LIB_DIR)/lib.s $(SRC_DIR)/fact.o $(SRC_DIR)/lntwo.o $(SRC_DIR)/gcd.o
 
 clean:
 	@echo "Clean up all stuff!!!"

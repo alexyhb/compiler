@@ -3,8 +3,8 @@
 //
 
 #include <stdio.h>
-#include "y.tab.h"
 #include "calc3.h"
+#include "y.tab.h"
 
 static int lbl;
 
