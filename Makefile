@@ -1,7 +1,7 @@
 makCC = gcc
 LD = gcc
 
-COM_DIR = lexyacc-code
+COM_DIR = lexyacc-code_lab3
 BIN_DIR = bin
 SRC_DIR = src
 LIB_DIR = lib
@@ -27,7 +27,7 @@ flex: bison
 	@flex $(COM_DIR)/calc3.l
 	@$(MV) lex.yy.c $(COM_DIR)/
 
-bison: 
+bison:
 	@echo "Bison: bison -y -d ./lexyacc-code/calc3.y"
 	@bison -y -d $(COM_DIR)/calc3.y
 	@$(MV) y.tab.c $(COM_DIR)/
