@@ -12,6 +12,7 @@ x86-backend:
 	bison -y -d $(DIR)calc3.y
 	flex $(DIR)calc3.l
 	gcc -c y.tab.c lex.yy.c
-	gcc y.tab.o lex.yy.o $(DIR)calc3i.c -o /bin/calc3i
+	gcc -c $(DIR)calc3i.c
+# 	gcc y.tab.o lex.yy.o $(DIR)calc3i.c -o calc3i.o
 
 all : x86-backend
