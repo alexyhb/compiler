@@ -1,21 +1,23 @@
 #!/bin/bash
 
+
 if [ $# -le 0 ]; then
 	echo "ERROR: .calc-file input needed."
 	exit
 fi
-
-if [ "'echo "$1" | cut -d"." -f2'" != "calc" ]; then
+var=${@:${#@}}
+flag=`echo $var|cut -f2 -d "."`
+if [ $flag != "calc" ]; then
 	echo "ERROR: .calc-file input needed."
 	exit
 fi
 
-fileName='echo $1|cut -d'.' -f'
-
+fileName=`echo $var|cut -f1 -d "."|cut -f3 -d"/"`
+echo $fileName
 assemblyFile=$fileName.s
 
 cat prologue.s > $assemblyFile
-./calc3i < $1 >> $assemblyFile
+./bin/calc3i < $1 >> $assemblyFile
 cat epilogue.s >> $assemblyFile
 
-gcc $assemblyFile lib.s -o$fileName
+gcc $assemblyFile ./lib/lib.s -o $fileName

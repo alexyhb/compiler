@@ -27,17 +27,17 @@ flex: bison
 	@flex $(COM_DIR)/calc3.l
 	@$(MV) lex.yy.c $(COM_DIR)/
 
-bison:
+bison:exlib
 	@echo "Bison: bison -y -d ./lexyacc-code/calc3.y"
 	@bison -y -d $(COM_DIR)/calc3.y
 	@$(MV) y.tab.c $(COM_DIR)/
 	@$(MV) y.tab.h $(COM_DIR)/
 
-# exlib:
-# 	@$(CC) -c -o $(SRC_DIR)/fact.o $(SRC_DIR)/fact.s
-# 	@$(CC) -c -o $(SRC_DIR)/lntwo.o $(SRC_DIR)/lntwo.s
-# 	@$(CC) -c -o $(SRC_DIR)/gcd.o $(SRC_DIR)/gcd.s
-# 	@ar rcs $(LIB_DIR)/lib.s $(SRC_DIR)/fact.o $(SRC_DIR)/lntwo.o $(SRC_DIR)/gcd.o
+exlib:
+	@$(CC) -c -o $(SRC_DIR)/fact.o $(SRC_DIR)/fact.s
+	@$(CC) -c -o $(SRC_DIR)/lntwo.o $(SRC_DIR)/lntwo.s
+	@$(CC) -c -o $(SRC_DIR)/gcd.o $(SRC_DIR)/gcd.s
+	@ar rcs $(LIB_DIR)/lib.s $(SRC_DIR)/fact.o $(SRC_DIR)/lntwo.o $(SRC_DIR)/gcd.o
 
 clean:
 	@echo "Clean up all stuff!!!"
