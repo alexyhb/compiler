@@ -27,7 +27,7 @@ l2:	cmpq	%rax, %rcx
     jmp	l2
 l3:	movq	%rbx, %rax
     ret
-    
+
 /* gcd */
 
 gcd:
