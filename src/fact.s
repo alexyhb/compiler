@@ -1,14 +1,22 @@
-    .data
-	.text
-	.global fact
+.global fact
 
 fact:
-	movq 	4(%rsp), %rcx
-	movq 	$1 , %rax
-	cmpq	%rax , %rcx
-	jl	l7
-l1:	mulq 	%rcx
-	loop 	l1
-	jmp	l8
-l7:	movq	$1 , %rcx
-l8:	ret
+	pushq	%rbp
+	movq 	%rsp,	%rbp
+	movq	%rdi,	%rbx
+	movq 	$1,		%rax
+	jmp loop
+
+mul:
+	imulq	%rbx
+	dec		%rbx
+
+loop:
+	cmp		$0,		%rbx
+	jg mul
+	jl done
+
+done:
+	movq	%rbp,	%rsp
+	popq	%rbp
+	ret

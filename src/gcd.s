@@ -1,17 +1,22 @@
-    .data
-	.text
-	.global gcd
-/* gcd */
+.global gcd
 
 gcd:
-      	movq 	4(%rsp), %rax
-      	movq 	8(%rsp), %rbx
-l4:   	cmp 	%rax, %rbx
-      	je  	l6
-      	jle 	l5
-      	sub 	%rax, %rbx
-      	jmp 	l4
-l5:  	sub  	%rbx, %rax
-      	jmp 	l4
-l6:
-      ret
+	pushq	%rbp
+	movq	%rsp,	%rbp
+	jmp loop
+
+loop:
+	cmp		%rsi,	%rdi
+	je 	done
+	jg handle
+	subq	%rsi,	%rdi
+	jmp loop
+
+handle:
+	subq	%rdi,	%rsi
+	jmp	loop
+
+done:
+	movq	%rdi,	%rax
+	popq	%rbp
+	ret

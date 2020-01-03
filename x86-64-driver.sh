@@ -16,8 +16,10 @@ fileName=`echo $var|cut -f1 -d "."`
 echo $fileName
 assemblyFile=$fileName.s
 
+
 cat prologue.s > $assemblyFile
 ./bin/calc3i < $1 >> $assemblyFile
 cat epilogue.s >> $assemblyFile
 
-gcc  -shared -fPIC $assemblyFile ./lib/lib.s -o  $fileName
+#gcc  -shared -fPIC $assemblyFile   $fileName
+gcc -g $assemblyFile -o $fileName lib/lib.a
