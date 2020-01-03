@@ -6,7 +6,8 @@ print_int:
 .global fact
 .global gcd
 .global lntwo
-
+FINT:	.string "%d\n"
+	.text
 .global main
 
 main:
