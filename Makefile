@@ -1,7 +1,7 @@
 makCC = gcc
 LD = gcc
 
-COM_DIR = lexyacc-code_lab3
+COM_DIR = lexyacc-code
 BIN_DIR = bin
 SRC_DIR = src
 LIB_DIR = lib
