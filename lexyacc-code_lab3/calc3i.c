@@ -25,7 +25,7 @@ int ex(nodeType *p) {
                     printf("L%03d:\n", lbl1 = lbl++);
                     ex(p->opr.op[0]);
                     printf("\tpopq\t%%rcx\n");
-                    printf("\ttest\t%%cx, %%cx\n");
+                    printf("\ttestq\t%%cx, %%cx\n");
                     printf("\tje\tL%03d\n", lbl2 = lbl++);
                     ex(p->opr.op[1]);
                     printf("\tjmp\tL%03d\n", lbl1);
@@ -82,10 +82,10 @@ int ex(nodeType *p) {
                         case GCD:   printf("\tcall gcd\n"); break;
                         case '+':   printf("\tadd\t %%rbx,%%rax\t \n"); break;
                         case '-':   printf("\tsub\t %%rbx,%%rax \n"); break;
-                        case '*':   printf("\tmul\t %%rbx \n"); break;
+                        case '*':   printf("\tmulq\t %%rbx \n"); break;
                         case '/':
                             printf("\tcltq");
-                            printf("\tidiv %%rbx\n");
+                            printf("\tidivq %%rbx\n");
                             break;
                         case '<':
                             printf("\tmovq\t$0, %%rcx\n");

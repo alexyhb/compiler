@@ -22,7 +22,7 @@ lntwo:
     movq	$0, %rbx
 l2:	cmpq	%rax, %rcx
     jbe	l3
-    imul	$2, %rax
+    imulq	$2, %rax
     inc	%rbx
     jmp	l2
 l3:	movq	%rbx, %rax
@@ -42,4 +42,3 @@ l5:  	sub  	%rbx, %rax
       	jmp 	l4
 l6:
       ret
-      
