@@ -20,4 +20,4 @@ cat prologue.s > $assemblyFile
 ./bin/calc3i < $1 >> $assemblyFile
 cat epilogue.s >> $assemblyFile
 
-gcc   -fPIC $assemblyFile ./lib/lib.s -o $fileName
+gcc  -shared -fPIC $assemblyFile ./lib/lib.s -o  $fileName
