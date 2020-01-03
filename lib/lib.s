@@ -2,7 +2,7 @@
 	.text
 	.global fact
 	.global gcd
-	.global lntwo
+	.global fact
 
 fact:
 	movq 	4(%rsp), %rcx
@@ -15,7 +15,7 @@ l1:	mulq 	%rcx
 l7:	movq	$1, %rcx
 l8:	ret
 
-	.global lntwo
+
 lntwo:
     movq	4(%rsp), %rcx
     movq	$1, %rax
@@ -27,9 +27,7 @@ l2:	cmpq	%rax, %rcx
     jmp	l2
 l3:	movq	%rbx, %rax
     ret
-    .data
-	.text
-	.global gcd
+    
 /* gcd */
 
 gcd:

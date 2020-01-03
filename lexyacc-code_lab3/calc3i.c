@@ -14,17 +14,19 @@ int ex(nodeType *p) {
     if (!p) return 0;
     switch(p->type) {
         case typeCon:
-            printf("\tpush\t%d\n", p->con.value);
+            printf("\tpushl\t$%d\n", p->con.value);
             break;
         case typeId:
-            printf("\tpush\t%c\n", p->id.i + 'a');
+            printf("\tpushl\t%c\n", p->id.i + 'a');
             break;
         case typeOpr:
             switch(p->opr.oper) {
                 case WHILE:
                     printf("L%03d:\n", lbl1 = lbl++);
                     ex(p->opr.op[0]);
-                    printf("\tjz\tL%03d\n", lbl2 = lbl++);
+                    printf("\tpopl\t%%ecx\n");
+                    printf("\ttest\t%%cx, %%cx\n");
+                    printf("\tje\tL%03d\n", lbl2 = lbl++);
                     ex(p->opr.op[1]);
                     printf("\tjmp\tL%03d\n", lbl1);
                     printf("L%03d:\n", lbl2);
@@ -33,7 +35,8 @@ int ex(nodeType *p) {
                     ex(p->opr.op[0]);
                     if (p->opr.nops > 2) {
                         /* if else */
-                        printf("\tjz\tL%03d\n", lbl1 = lbl++);
+                        printf("\tpopl\t%%ecx\n");
+                        printf("\tjecxz\tL%03d\n", lbl1 = lbl++);
                         ex(p->opr.op[1]);
                         printf("\tjmp\tL%03d\n", lbl2 = lbl++);
                         printf("L%03d:\n", lbl1);
@@ -41,91 +44,100 @@ int ex(nodeType *p) {
                         printf("L%03d:\n", lbl2);
                     } else {
                         /* if */
-                        printf("\tjz\tL%03d\n", lbl1 = lbl++);
+                        printf("\tpopl\t%%ecx\n");
+                        printf("\tjecxz\tL%03d\n", lbl1 = lbl++);
                         ex(p->opr.op[1]);
                         printf("L%03d:\n", lbl1);
                     }
                     break;
                 case PRINT:
                     ex(p->opr.op[0]);
-                    printf("\tpush \t$FINT\n");
-                    printf("\tcall printf\n");
+                    printf("\tpush\t$FINT\n");
+                    printf("\tcall\tprintf\n");
                     break;
                 case '=':
                     ex(p->opr.op[1]);
-                    printf("\tpop\t%c\n", p->opr.op[0]->id.i + 'a');
+                    printf("\tpopl\t%c\n", p->opr.op[0]->id.i + 'a');
                     break;
                 case UMINUS:
                     ex(p->opr.op[0]);
-                    printf("\tpopq %%rax\n");
-                    printf("\tneg %%rax\n");
-                    printf("\tpushq %%rax\n");
+                    printf("\tpopl %%eax\n");
+                    printf("\tneg %%eax\n");
+                    printf("\tpushl %%eax\n");
                     break;
                 case FACT:
                     ex(p->opr.op[0]);
                     printf("\tcall fact\n");
-                    printf("\tpushq %%rax\n");
+                    printf("\tpushl %%eax\n");
                     break;
                 case LNTWO:
                     ex(p->opr.op[0]);
                     printf("\tcall lntwo\n");
-                    printf("\tpushq %%rax\n");
+                    printf("\tpushl %%eax\n");
                     break;
                 default:
                     ex(p->opr.op[0]);
                     ex(p->opr.op[1]);
+                    if (p->opr.oper == 59) {
+                        /* Broken operator, dont exist, why do we even get this?*/
+                    }
+                    else if (p->opr.oper != GCD) {
+                        printf("\tpopl\t%%ebx\n");
+                        printf("\tpopl\t%%eax\n");
+                    }
                     switch(p->opr.oper) {
-                        case GCD:   printf("\tcall gcd\n"); break;
-                        case '+':   printf("\tadd\t %%rbx %%rax\t \n"); break;
-                        case '-':   printf("\tsub\t %%rbx %%rax \n"); break;
-                        case '*':   printf("\tmul\t %%rbx \n"); break;
+                        case GCD:
+                            printf("\tcall gcd\n");
+                            break;
+                        case '+':   printf("\tadd\t %%ebx, %%eax\n"); break;
+                        case '-':   printf("\tsub\t %%ebx, %%eax\n"); break;
+                        case '*':   printf("\tmul\t %%ebx\n"); break;
                         case '/':
-                            printf("\tcltq");
-                            printf("\tidiv %%rbx\n");
+                            printf("\tcltd\n");
+                            printf("\tidiv %%ebx\n");
                             break;
                         case '<':
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
+                            printf("\tmovl\t$0, %%ecx\n");
+                            printf("\t\t%%eax, %%ebx\n");
+                            printf("\tcmpl\t%%eax, %%ebx\n");
                             printf("\tsetg\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
-                            break;
+                            printf("\tpushl\t\%%ecx\n");
+                            return 0;
                         case '>':
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
+                            printf("\tmovl\t$0, %%ecx\n");
+                            printf("\tcmpl\t%%eax, %%ebx\n");
                             printf("\tsetl\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
-                            break;
+                            printf("\tpushl\t\%%ecx\n");
+                            return 0;
                         case GE:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tsetge\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
-                            break;
-                        case LE:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
+                            printf("\tmovl\t$0, %%ecx\n");
+                            printf("\tcmpl\t%%eax, %%ebx\n");
                             printf("\tsetle\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
-                            break;
+                            printf("\tpushl\t\%%ecx\n");
+                            return 0;
+                        case LE:
+                            printf("\tmovl\t$0, %%ecx\n");
+                            printf("\tcmpl\t%%eax, %%ebx\n");
+                            printf("\tsetge\t%%cl\n");
+                            printf("\tpushl\t\%%ecx\n");
+                            return 0;
                         case NE:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
+                            printf("\tmovl\t$0, %%ecx\n");
+                            printf("\tcmpl\t%%eax, %%ebx\n");
                             printf("\tsetne\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
-                            break;
+                            printf("\tpushl\t\%%ecx\n");
+                            return 0;
                         case EQ:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tseteq\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
-                            break;
+                            printf("\tmovl\t$0, %%ecx\n");
+                            printf("\tcmpl\t%%eax, %%ebx\n");
+                            printf("\tsete\t%%cl\n");
+                            printf("\tpushl\t\%%ecx\n");
+                            return 0;
+                        default:
+                            printf("/*unknown operator: %d*/\n", p->opr.oper);
+                            return 0;
                     }
+                    printf("\tpushl\t\%%eax\n");
             }
     }
     return 0;
