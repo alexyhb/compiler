@@ -30,4 +30,4 @@ z:	.skip	4
 FINT:	.string "%d\n"
 	.text
 	.global main
-main
+main:
