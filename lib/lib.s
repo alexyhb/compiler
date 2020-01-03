@@ -1,4 +1,4 @@
-    .data
+
 	.text
 	.global fact
 	.global gcd
