@@ -1,1 +1,1 @@
-exit
+call exit
