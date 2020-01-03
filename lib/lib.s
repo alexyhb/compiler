@@ -1,4 +1,4 @@
-
+    .data
 	.text
 	.global fact
 	.global gcd
@@ -42,3 +42,4 @@ l5:  	sub  	%rbx, %rax
       	jmp 	l4
 l6:
       ret
+      
