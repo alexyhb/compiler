@@ -12,7 +12,7 @@ if [ $flag != "calc" ]; then
 	exit
 fi
 
-fileName=`echo $var|cut -f1 -d "."|cut -f3 -d"/"`
+fileName=`echo $var|cut -f1 -d "."`
 echo $fileName
 assemblyFile=$fileName.s
 
