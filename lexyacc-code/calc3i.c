@@ -8,13 +8,20 @@
 
 static int lbl;
 
+/* Pop stack operation */
+void popStack(char r1[], char r2[])
+{
+    printf("\tpopq\t%%%s\n", r1);
+    printf("\tpopq\t%%%s\n", r2);
+}
+
 int ex(nodeType *p) {
     int lbl1, lbl2;
 
     if (!p) return 0;
     switch(p->type) {
         case typeCon:
-            printf("\tpushq\t%d\n", p->con.value);
+            printf("\tpushq\t$%d\n", p->con.value);
             break;
         case typeId:
             printf("\tpushq\t%c\n", p->id.i + 'a');
@@ -22,38 +29,37 @@ int ex(nodeType *p) {
         case typeOpr:
             switch(p->opr.oper) {
                 case WHILE:
-                    printf("L%03d:\n", lbl1 = lbl++);
+                    printf("\nL%03d:\n", lbl1 = lbl++);
                     ex(p->opr.op[0]);
-                    printf("\tpopq\t%%rcx\n");
-                    printf("\ttestq\t%%cx, %%cx\n");
-                    printf("\tje\tL%03d\n", lbl2 = lbl++);
+                    printf("\tL%03d\n", lbl2 = lbl++);
                     ex(p->opr.op[1]);
                     printf("\tjmp\tL%03d\n", lbl1);
-                    printf("L%03d:\n", lbl2);
+                    printf("\nL%03d:\n", lbl2);
                     break;
                 case IF:
                     ex(p->opr.op[0]);
                     if (p->opr.nops > 2) {
                         /* if else */
-                        printf("\tpopq\t%%rcx\n");
-                        printf("\tjecxz\tL%03d\n", lbl1 = lbl++);
+                        printf("\tL%03d\n", lbl1 = lbl++);
                         ex(p->opr.op[1]);
                         printf("\tjmp\tL%03d\n", lbl2 = lbl++);
-                        printf("L%03d:\n", lbl1);
+                        printf("\nL%03d:\n", lbl1);
                         ex(p->opr.op[2]);
-                        printf("L%03d:\n", lbl2);
+                        printf("\nL%03d:\n", lbl2);
                     } else {
                         /* if */
-                        printf("\tpopq\t%%rcx\n");
-                        printf("\tjecxz\tL%03d\n", lbl1 = lbl++);
+                        printf("\tL%03d\n", lbl1 = lbl++);
                         ex(p->opr.op[1]);
-                        printf("L%03d:\n", lbl1);
+                        printf("\nL%03d:\n", lbl1);
                     }
                     break;
                 case PRINT:
                     ex(p->opr.op[0]);
-                    printf("\tpush \t$FINT\n");
-                    printf("\tcall printf\n");
+                    // Call 'printf'
+                    printf("\tmovq\t$print_int, %%rdi\n");
+                    printf("\tpopq\t%%rax\n");
+                    printf("\tmovq\t%%rax, %%rsi\n");
+                    printf("\tcall\tprintf\n");
                     break;
                 case '=':
                     ex(p->opr.op[1]);
@@ -61,73 +67,81 @@ int ex(nodeType *p) {
                     break;
                 case UMINUS:
                     ex(p->opr.op[0]);
-                    printf("\tpopq %%rax\n");
-                    printf("\tneg %%rax\n");
-                    printf("\tpushq %%rax\n");
+                    printf("\tpopq\t%%rax\n");
+                    printf("\tneg\t%%rax\n");
+                    printf("\tpushq\t%%rax\n");
                     break;
                 case FACT:
                     ex(p->opr.op[0]);
-                    printf("\tcall fact\n");
-                    printf("\tpushq %%rax\n");
+                    printf("\tpopq\t%%rdi\n");
+                    printf("\tcall\tfact\n");
+                    printf("\tpushq\t%%rax\n");
                     break;
                 case LNTWO:
                     ex(p->opr.op[0]);
-                    printf("\tcall lntwo\n");
-                    printf("\tpushq %%rax\n");
+                    printf("\tpopq\t%%rdi\n");
+                    printf("\tcall\tlntwo\n");
+                    printf("\tpushq\t%%rax\n");
                     break;
                 default:
                     ex(p->opr.op[0]);
                     ex(p->opr.op[1]);
                     switch(p->opr.oper) {
-                        case GCD:   printf("\tcall gcd\n"); break;
-                        case '+':   printf("\tadd\t %%rbx,%%rax\t \n"); break;
-                        case '-':   printf("\tsub\t %%rbx,%%rax \n"); break;
-                        case '*':   printf("\tmulq\t %%rbx \n"); break;
+                        case GCD:
+                            popStack("rsi", "rdi");
+                            printf("\tcall\tgcd\n");
+                            printf("\tpushq\t%%rax\n");
+                            break;
+                        case '+':
+                            popStack("rbx", "rax");
+                            printf("\taddq\t%%rbx, %%rax\n");
+                            printf("\tpushq\t%%rax\n");
+                            break;
+                        case '-':
+                            popStack("rbx", "rax");
+                            printf("\tsubq\t%%rbx, %%rax\n");
+                            printf("\tpushq\t%%rax\n");
+                            break;
+                        case '*':
+                            popStack("rbx", "rax");
+                            printf("\timulq\t%%rbx\n");
+                            printf("\tpushq\t%%rax\n");
+                            break;
                         case '/':
-                            printf("\tcltq");
-                            printf("\tidivq %%rbx\n");
+                            popStack("rbx", "rax");
+                            printf("\tcdq\n");
+                            printf("\tidivq\t%%rbx\n");
+                            printf("\tpushq\t%%rax\n");
                             break;
                         case '<':
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tsetg\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
+                            popStack("rbx", "rax");
+                            printf("\tcmp\t%%rbx, %%rax\n");
+                            printf("\tjge");
                             break;
                         case '>':
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tsetl\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
+                            popStack("rbx", "rax");
+                            printf("\tcmp\t%%rbx, %%rax\n");
+                            printf("\tjle");
                             break;
                         case GE:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tsetge\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
+                            popStack("rbx", "rax");
+                            printf("\tcmp\t%%rbx, %%rax\n");
+                            printf("\tjl");
                             break;
                         case LE:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tsetle\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
+                            popStack("rbx", "rax");
+                            printf("\tcmp\t%%rbx, %%rax\n");
+                            printf("\tjg");
                             break;
                         case NE:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tsetne\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
+                            popStack("rbx", "rax");
+                            printf("\tcmp\t%%rbx, %%rax\n");
+                            printf("\tje");
                             break;
                         case EQ:
-                            printf("\tmovq\t$0, %%rcx\n");
-                            printf("\t\t%%rax, %%rbx\n");
-                            printf("\tcmpq\t%%rax, %%rbx\n");
-                            printf("\tseteq\t%%cl\n");
-                            printf("\tpushq\t\%%rcx\n");
+                            popStack("rbx", "rax");
+                            printf("\tcmp\t%%rbx, %%rax\n");
+                            printf("\tjne");
                             break;
                     }
             }
