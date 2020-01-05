@@ -22,4 +22,4 @@ cat prologue.s > $assemblyFile
 cat epilogue.s >> $assemblyFile
 
 #gcc  -shared -fPIC $assemblyFile   $fileName
-gcc -g $assemblyFile -o $fileName lib/lib.a
+gcc -no-pie -g $assemblyFile -o $fileName lib/lib.a
