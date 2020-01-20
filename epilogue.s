@@ -1,4 +1,4 @@
-    call exit
+        call exit
 .bss
 
 .global a
